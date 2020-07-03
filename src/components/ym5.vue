@@ -1,17 +1,17 @@
 <template>
     <div class="ym5">
-        <div class="ym5-1" v-show="hs">
-          <div id="hz" class="animated fadeIn"  :class="`hz-${h}`">
+        <div class="ym5-1" v-show="s ==1">
+          <div id="hz" class="animated fadeIn"  :class="h ? 'hz-1': 'hz-2'" v-show="hs">
             <div class="yao animated fadeIn" v-show="ys">
-              <!-- <div>请摇一摇</div> -->
+              <div>请摇一摇</div>
             </div>
           </div>
         </div>
-        <div id="ym52" v-show="s" :class="`ym${h}`" @click="tiaozhuan()">
-            <!-- <h1>请点击任意纸团</h1>
+        <div id="ym52" v-show="s ==2" :class="h ? 'ym5-2': 'ym5-3'">
+            <h1>请点击任意纸团</h1>
             <div class="shou"></div>
-            <div class="" @click="tiaozhuan()"></div>
-            <div class="zt zt2" @click="tiaozhuan()"></div> -->
+            <div class="zt zt1" @click="tiaozhuan()"></div>
+            <div class="zt zt2" @click="tiaozhuan()"></div>
         </div>
     </div>
 </template>
@@ -21,30 +21,27 @@ import Shake from 'shake.js'
 export default {
     data(){
         return{
-          s:false,
-          h:0,
+          s:1,
+          h:true,
           ar:[],
           hs:false,
-          ys:false,
-          isShaked:false
+          ys:false
         }
     },
     created(){
       if(this.$route.query.arr){
-        this.hs = true;
-        this.s = false;
-        this.isShaked = false
-        this.h = this.$route.query.arr
+        this.h = false
+        this.ar = this.$route.query.arr
       }
     },
-    mounted() {
+    mounted () {
     // 实例化一个 shake 对象
     let myShakeEvent = new Shake({
       threshold: 20, // 默认摇动阈值
-      timeout: 1200000 // 默认两次事件间隔时间
+      timeout: 1200 // 默认两次事件间隔时间
     })
     // 监听设备的动作
-    myShakeEvent.start();
+    myShakeEvent.start()
     // 添加一个事件监听
     window.addEventListener('shake', this.shakeEventDidOccur, false)
     setTimeout(()=>{
@@ -56,18 +53,13 @@ export default {
   },
   methods:{
     shakeEventDidOccur(){
-      if(!this.isShaked){
-        this.s = true
-        this.hs = false
-        this.h++
-        this.isShaked = true
-      }
+      this.s = 2
     },
     tiaozhuan(){
       this.$router.push({
         name:'ym6',
         query:{
-          ar:this.h
+          ar:this.ar
         }
       })
     }
@@ -95,17 +87,11 @@ export default {
   bottom: 0;
   background-size: cover;
 }
-.hz-0{
-  background-image: url('../../static/img/y5/for.png');
-}
 .hz-1{
-  background-image: url('../../static/img/y5/three.png');
+  background-image: url('../../static/img/y5/for.png');
 }
 .hz-2{
   background-image: url('../../static/img/y5/two.png');
-}
-.hz-3{
-  background-image: url('../../static/img/y5/one.png');
 }
 .yao{
   position: absolute;
@@ -113,7 +99,7 @@ export default {
   right: 0;
   width: 100%;
   height: 36%;
-  /* background-image: url('../../static/img/y5/yao.png'); */
+  background-image: url('../../static/img/y5/yao.png');
   background-size: cover;
   font-size: .32rem;
   display: flex;
@@ -142,22 +128,16 @@ export default {
    margin: 0 auto;
    width:2rem ;
    height: 2rem;
-   /* background-image: url('../../static/img/y5/shou.png'); */
+   background-image: url('../../static/img/y5/shou.png');
    background-size: cover;
    transform: rotate(180deg);
    margin-bottom: .3rem;
 }
-.ym1{
-    background-image: url('../../static/img/y5/for_shake.png');
+.ym5-2{
+    background-image: url('../../static/img/y5/two.png');
 }
-.ym2{
-    background-image: url('../../static/img/y5/three_shake.png');
-}
-.ym3{
-    background-image: url('../../static/img/y5/two_shake.png');
-}
-.ym4{
-    background-image: url('../../static/img/y5/one_shake.png');
+.ym5-3{
+    background-image: url('../../static/img/y5/none.png');
 }
 .zt{
   width: 1rem;
@@ -172,5 +152,4 @@ export default {
 .zt2{
   transform: translateX(1rem)
 }
-
 </style>
