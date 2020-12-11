@@ -1,22 +1,22 @@
 <template>
   <div class="ym6" @touchend="huadong">
-    <!-- <div class="ym6-1" v-show="s == ''">
+    <div class="ym6-1" v-show="s == ''">
       <h3>请选择其中一个方面</h3>
       <div class="nav">
         <div class="tab" v-for="(v,x) in ars" :key="(v,x)" @click="act(v,x)">{{v}}</div>
       </div>
-    </div> -->
-    <div class="ym6-2" v-show="s == '1'">
+    </div>
+    <div class="ym6-2" v-show="s == '交通'">
       <h1>交通方面</h1>
-      <video src="../../static/img/y5/traffic.mp4" controls class="animated zoomIn" v-show="a1" ref="audio" @play="playing()"></video>
+      <audio src="../../static/jt.mp3" controls class="animated zoomIn" v-show="a1" ref="audio" @play="playing()"></audio>
       <img src="../../static/img/y6/jt.jpg" alt class="animated zoomIn" v-show="a2" />
       <p class="animated zoomIn" v-show="a3">如今西藏的交通网络已经越来越四通八达，立体化交通运输网已基本形成，也为西藏的经济发展注入了新的活力</p>
       <div class="dj" @click="dj()" v-show="a4">点击继续</div>
       <div class="dj" v-show="a5">请滑动屏幕</div>
     </div>
-    <div class="ym6-2" v-show="s == '2'">
+    <div class="ym6-2" v-show="s == '教育'">
       <h1>教育方面</h1>
-      <video src="../../static/img/y5/education.mp4" controls class="animated zoomIn" v-show="a1" ref="audio2" @play="playing()"></video>
+      <audio src="../../static/jy.mp3" controls class="animated zoomIn" v-show="a1" ref="audio2" @play="playing()"></audio>
       <img src="../../static/img/y6/jy.jpg" alt class="animated zoomIn" v-show="a2" />
       <p
         class="animated zoomIn"
@@ -25,9 +25,9 @@
       <div class="dj" @click="dj()" v-show="a4">点击继续</div>
       <div class="dj" v-show="a5">请滑动屏幕</div>
     </div>
-    <div class="ym6-2" v-show="s == '3'">
+    <div class="ym6-2" v-show="s == '居住'">
       <h1>居住方面</h1>
-      <video src="../../static/img/y5/live.mp4" controls class="animated zoomIn" v-show="a1" ref="audio3" @play="playing()"></video>
+      <audio src="../../static/jzhj.mp3" controls class="animated zoomIn" v-show="a1" ref="audio3" @play="playing()"></audio>
       <img src="../../static/img/y6/jzhj.jpg" alt class="animated zoomIn" v-show="a2" />
       <p
         v-show="a3"
@@ -36,9 +36,9 @@
       <div class="dj" @click="dj()" v-show="a4">点击继续</div>
       <div class="dj" v-show="a5">请滑动屏幕</div>
     </div>
-    <div class="ym6-2" v-show="s == '4'">
+    <div class="ym6-2" v-show="s == '治安'">
       <h1>治安方面</h1>
-      <video src="../../static/img/y5/security.mp4" controls class="animated zoomIn" v-show="a1" ref="audio4" @play="playing()"></video>
+      <audio src="../../static/za.mp3" controls class="animated zoomIn" v-show="a1" ref="audio4" @play="playing()"></audio>
       <img src="../../static/img/y6/za.jpg" alt class="animated zoomIn" v-show="a2" />
       <p
         v-show="a3"
@@ -66,12 +66,6 @@ export default {
       a5: false
     };
   },
-  created(){
-    if(this.$route.query.ar){
-        this.s = this.$route.query.ar
-        this.t();
-      }
-  },
   methods: {
     playing(){
       this.$emit('puse')
@@ -79,6 +73,7 @@ export default {
     act(v, x) {
       this.s = v;
       this.n = x;
+      this.t();
     },
     t() {
       var b = setInterval(() => {
@@ -104,11 +99,11 @@ export default {
         this.$refs.audio2.pause()
         this.$refs.audio3.pause()
         this.$refs.audio4.pause()
-        // if(this.n+1 < this.ars.length){
-        //     this.s = this.ars[this.n + 1];
-        // }else{
-        //     this.s = this.ars[this.n - 1];
-        // }
+        if(this.n+1 < this.ars.length){
+            this.s = this.ars[this.n + 1];
+        }else{
+            this.s = this.ars[this.n - 1];
+        }
         this.a1 = false;
         this.a2 = false;
         this.a3 = false;
@@ -125,12 +120,6 @@ export default {
         }, 3000);
 
         this.nav.splice(this.nav.findIndex(item => item === this.ars[this.n]), 1);
-        this.$router.push({
-            name: "ym10",
-            query: {
-              arr: this.s
-            }
-          });
     },
     huadong() {
       if (this.a5) {
@@ -152,13 +141,13 @@ export default {
     }
   },
   mounted() {
-    // let b = Math.floor(Math.random()*3);
-    // if (this.$route.query.ar.length>0) {
-    //   this.nav = this.$route.query.ar
-    //   this.ars = this.$route.query.ar;
-    // }else{
-    //     this.ars.push(this.nav[b],this.nav[b+1])
-    // }
+    let b = Math.floor(Math.random()*3);
+    if (this.$route.query.ar.length>0) {
+      this.nav = this.$route.query.ar
+      this.ars = this.$route.query.ar;
+    }else{
+        this.ars.push(this.nav[b],this.nav[b+1])
+    }
   }
 };
 </script>
@@ -220,8 +209,5 @@ export default {
   bottom: 1rem;
   left: 50%;
   transform: translateX(-50%);
-}
-.animated{
-  height: 3rem;
 }
 </style>

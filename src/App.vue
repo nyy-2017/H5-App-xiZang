@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view @puse='puse()' @ply='ply()'></router-view>
-    <img src="../static/img/title.png" class="logo">
+    <div class="logo">西藏：一路向“东”</div>
     <div class="mus" @click="p()" :class="a == false ? 'pause' : 'play'"></div>
     <audio src="../static/bjmusic.mp3" autoplay loop preload="auto" ref="audio"></audio>
   </div>
@@ -73,12 +73,11 @@ html,body{
 }
 .logo{
   position: fixed;
-  bottom: -0.8rem;
-  right: -0.5rem;
+  bottom: .1rem;
+  right: .1rem;
   z-index: 100;
   font-size: .24rem;
-  width: 2.5rem;
-  height: 2rem;
+  
 }
 .mus{
   position: fixed;
