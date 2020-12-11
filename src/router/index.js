@@ -9,6 +9,7 @@ import Ym6 from '@/components/ym6'
 import Ym7 from '@/components/ym7'
 import Ym8 from '@/components/ym8'
 import Ym9 from '@/components/ym9'
+import Ym10 from '@/components/ym10'
 Vue.use(Router)
 
 export default new Router({
@@ -62,6 +63,11 @@ export default new Router({
       path:'/ym9',
       component:Ym9,
       name:'ym9'
+    },
+    {
+      path:'/ym10',
+      component:Ym10,
+      name:'ym10'
     }
   ]
 })
