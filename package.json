@@ -12,7 +12,7 @@
   "dependencies": {
     "@moefe/vue-aplayer": "^2.0.0-beta.5",
     "shake.js": "^1.2.2",
-    "video.js": "^7.7.5",
+    "video.js": "^7.20.3",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vue-video-player": "^5.0.2"
